@@ -2,6 +2,7 @@ clear; close all; clc;
 
 robot = Robot;
 robot = robot.addPositionHistory;
+robot.plotRobot(0);
 
 simTimeSampling = 0.25;
 simMaxTime = 30;
