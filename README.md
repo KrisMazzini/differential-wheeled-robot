@@ -9,7 +9,7 @@ covering a given path using MATLAB.
 - The models were built following an OOP concept, therefore there are
 two class definitions - Robot.m and IncrementalRobot.m - which contains
 each robot's properties and methods.
-- The simulation routine are started by one of the following files, each
+- The simulation routine is started by one of the following files, each
 corresponding to its respective class definition
     - differentialModel.m
     - incrementalDifferentialModel.m
