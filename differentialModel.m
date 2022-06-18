@@ -10,6 +10,6 @@ for time = 0:simTimeSampling:simMaxTime
   
     robot = robot.move(simTimeSampling);
     robot = robot.addPositionHistory;
-    robot.plotRobot;
+    robot.plotRobot(time);
 
 end
