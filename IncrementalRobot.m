@@ -7,8 +7,6 @@ classdef IncrementalRobot
         velocity
         angularVelocity
         body
-        leftWheel
-        rightWheel
     end
     properties
         position = [0; 0; 0]
@@ -33,36 +31,7 @@ classdef IncrementalRobot
         end
 
         function robotBody = get.body(obj)
-            robotBody = [
-                100 , 227.5 , 227.5 , 100 , -200 , -227.5 , -227.5 , -200
-                -190.5 , -50 , 50 , 190.5 , 190.5 , 163 , -163 , -190.5
-            ] / 1000;
-            robotBody = [robotBody; [1 1 1 1 1 1 1 1]];
-
-            robotBody = obj.rotateZ(robotBody);
-            robotBody = obj.translate(robotBody);
-        end
-
-        function robotLeftWheel = get.leftWheel(obj)
-            robotLeftWheel = [
-                97.5 97.5 -97.5 -97.5
-                170.5 210.5 210.5 170.5
-            ] / 1000;
-            robotLeftWheel = [robotLeftWheel; [1 1 1 1]];
-
-            robotLeftWheel = obj.rotateZ(robotLeftWheel);
-            robotLeftWheel = obj.translate(robotLeftWheel);
-        end
-
-        function robotRightWheel = get.rightWheel(obj)
-            robotRightWheel = [
-                97.5 97.5 -97.5 -97.5
-                -170.5 -210.5 -210.5 -170.5
-            ] / 1000;
-            robotRightWheel = [robotRightWheel; [1 1 1 1]];
-
-            robotRightWheel = obj.rotateZ(robotRightWheel);
-            robotRightWheel = obj.translate(robotRightWheel);
+            robotBody = RobotBody(obj);
         end
 
         function obj = move(obj, timeSample)
@@ -78,31 +47,6 @@ classdef IncrementalRobot
             ];
             
             obj.position = obj.position + positionVariation;
-        end
-
-        function outputMatrix = translate(obj, inputMatrix)
-            x = obj.position(1);
-            y = obj.position(2);
-
-            translationMatrix = [
-                1 0 x
-                0 1 y
-                0 0 1
-            ];
-
-            outputMatrix = translationMatrix * inputMatrix;
-        end
-
-        function outputMatrix = rotateZ(obj, inputMatrix)
-            theta = obj.position(3);
-
-            rotationMatrix = [
-                cos(theta) -sin(theta) 0
-                sin(theta)  cos(theta) 0
-                0           0          1
-            ];
-
-            outputMatrix = rotationMatrix * inputMatrix;
         end
 
         function obj = addPositionHistory(obj)
