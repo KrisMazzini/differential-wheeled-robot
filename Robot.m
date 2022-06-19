@@ -64,6 +64,9 @@ classdef Robot
                 obj.position + ...
                 obj.inertialFrameVelocity * timeSample ...
             );
+
+            obj.position(3) = adjustAngle(obj.position(3));
+
             obj.positionHistory = [obj.positionHistory, obj.position];
         end
 
