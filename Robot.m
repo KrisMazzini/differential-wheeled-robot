@@ -29,7 +29,11 @@ classdef Robot
                 obj.leftWheelAngularVelocity ...
             );
 
-            velocity = min([velocity, obj.maxVelocity]);
+            if velocity >= 0
+                velocity = min(velocity, obj.maxVelocity);
+            else
+                velocity = max(velocity, -obj.maxVelocity);
+            end
         end
 
         function angularVelocity = get.angularVelocity(obj)

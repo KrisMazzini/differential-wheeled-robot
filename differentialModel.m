@@ -1,7 +1,7 @@
 clear; close all; clc;
 
 initialPosition = [0; 0; 0];
-goalPosition = [-5; 4; deg2rad(30)];
+goalPosition = [-5; 0; deg2rad(30)];
 
 robot = Robot(initialPosition);
 goal = Robot(goalPosition);
@@ -18,14 +18,21 @@ simTimeSampling = 0.2;
 controller = CloseLoopControl(robot, goal);
 
 maxDistanceError = 0.01;
-maxAngleError = deg2rad(0.1);
+maxAngleError = deg2rad(0.01);
 
 while ( ...
     (controller.rho > maxDistanceError) || ...
-    (abs(controller.alpha) > maxAngleError) || ...
-    (abs(controller.beta) > maxAngleError) ...
+    (abs(controller.err(3)) > maxAngleError) ...
 )
+
     velocity = controller.kRho * controller.rho;
+
+    controller = controller.shouldDriveBackwards(controller.alpha);
+
+    if (controller.driveBackwards)
+        velocity = -velocity;
+    end
+
     angularVelocity = ( ...
         controller.kAlpha * controller.alpha + ...
         controller.kBeta * controller.beta ...

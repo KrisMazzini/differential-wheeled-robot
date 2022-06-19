@@ -14,6 +14,7 @@ classdef CloseLoopControl
     properties
         currentPosition
         goalPosition
+        driveBackwards = false;
     end
     methods
         
@@ -44,12 +45,24 @@ classdef CloseLoopControl
             currTheta = obj.currentPosition(3);
             
             alpha = adjustAngle(obj.gamma - currTheta);
+            alpha = invertAngle(obj, alpha);
         end
 
         function beta = get.beta(obj)
             goalTheta = obj.goalPosition(3);
 
             beta = adjustAngle(goalTheta - obj.gamma);
+            beta = invertAngle(obj, beta);
+        end
+
+        function angle = invertAngle(obj, angle)
+            if obj.driveBackwards
+                angle = adjustAngle(angle + pi);
+            end
+        end
+
+        function obj = shouldDriveBackwards(obj, angle)
+            obj.driveBackwards = abs(angle) > pi/2;
         end
 
     end
