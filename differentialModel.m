@@ -10,6 +10,7 @@ fig = figure;
 fig.Position = [0, 0, 1000, 1000];
 
 plotRobot(robot, goal);
+title('Press "space" to begin.')
 pause;
 
 simTimeSampling = 0.2;
@@ -38,3 +39,5 @@ while ( ...
     plotRobot(robot, goal);
 
 end
+
+title('Goal completed :)')
