@@ -6,7 +6,7 @@ goalPosition = [0; 4; deg2rad(180)];
 robot = Robot(initialPosition);
 goal = Robot(goalPosition);
 
-plotRobot(robot, 0);
+plotRobot(robot, goal);
 
 simTimeSampling = 0.2;
 
@@ -31,6 +31,6 @@ while ( ...
 
     controller = CloseLoopControl(robot, goal);
 
-    plotRobot(robot, 0);
+    plotRobot(robot, goal);
 
 end

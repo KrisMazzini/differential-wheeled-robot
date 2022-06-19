@@ -1,23 +1,12 @@
-function plotRobot(robot, time)
+function plotRobot(robot, goal)
             x = robot.position(1);
             y = robot.position(2);
             theta = robot.position(3);
 
-            fill(robot.body.center(1,:), robot.body.center(2,:), 'y')
-            
+            plotBody(robot, 'r');
+            plotBody(goal, 'y');
+
             hold on;
-
-            fill( ...
-                robot.body.leftWheel(1,:), ...
-                robot.body.leftWheel(2,:), ...
-                'y' ...
-            );
-
-            fill( ...
-                robot.body.rightWheel(1,:), ...
-                robot.body.rightWheel(2,:), ...
-                'y' ...
-            );
 
             plot( ...
                 robot.positionHistory(1,:), ...
@@ -53,7 +42,6 @@ function plotRobot(robot, time)
             axis equal;
             xlabel('x [m]');
             ylabel('y [m]');
-            title(['Time: t = ' num2str(time)])
             grid on;
             drawnow
         end
