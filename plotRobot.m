@@ -3,8 +3,8 @@ function plotRobot(robot, goal)
             y = robot.position(2);
             theta = robot.position(3);
 
-            plotBody(robot, 'r');
             plotBody(goal, 'y');
+            plotBody(robot, 'r');
 
             hold on;
 
