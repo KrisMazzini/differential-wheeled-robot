@@ -1,7 +1,10 @@
 clear; close all; clc;
 
-robot = Robot;
+initialPosition = [0; 0; 0];
+
+robot = Robot(initialPosition);
 robot = robot.addPositionHistory;
+
 plotRobot(robot, 0);
 
 simTimeSampling = 0.25;

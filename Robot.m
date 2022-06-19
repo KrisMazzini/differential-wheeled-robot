@@ -17,6 +17,10 @@ classdef Robot
     end
     methods
 
+        function obj = Robot(position)
+            obj.position = position;
+        end
+
         function velocity = get.velocity(obj)
             velocity = obj.wheelRadius/2 * ( ...
                 obj.rightWheelAngularVelocity + ...
