@@ -6,9 +6,6 @@ goalPosition = [0; 4; deg2rad(180)];
 robot = Robot(initialPosition);
 goal = Robot(goalPosition);
 
-robot = robot.addPositionHistory;
-goal = goal.addPositionHistory;
-
 plotRobot(robot, 0);
 
 simTimeSampling = 0.2;
@@ -31,7 +28,6 @@ while ( ...
 
     robot = robot.adjustWheels(velocity, angularVelocity);
     robot = robot.move(simTimeSampling);
-    robot = robot.addPositionHistory;
 
     controller = CloseLoopControl(robot, goal);
 

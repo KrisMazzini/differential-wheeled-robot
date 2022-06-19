@@ -19,6 +19,7 @@ classdef Robot
 
         function obj = Robot(position)
             obj.position = position;
+            obj.positionHistory = position;
         end
 
         function velocity = get.velocity(obj)
@@ -63,9 +64,6 @@ classdef Robot
                 obj.position + ...
                 obj.inertialFrameVelocity * timeSample ...
             );
-        end
-
-        function obj = addPositionHistory(obj)
             obj.positionHistory = [obj.positionHistory, obj.position];
         end
 
