@@ -12,8 +12,8 @@ classdef Robot
     properties
         position = [0; 0; 0]
         positionHistory = []
-        leftWheelAngularVelocity = deg2rad(60)
-        rightWheelAngularVelocity = deg2rad(90)
+        leftWheelAngularVelocity = 0
+        rightWheelAngularVelocity = 0
     end
     methods
 
@@ -46,6 +46,16 @@ classdef Robot
 
         function robotBody = get.body(obj)
             robotBody = RobotBody(obj);
+        end
+
+        function obj = adjustWheels(obj, velocity, angularVelocity)
+            wheels = [
+                1/obj.wheelRadius,  obj.wheelAxis/(2*obj.wheelRadius)
+                1/obj.wheelRadius, -obj.wheelAxis/(2*obj.wheelRadius)
+            ] * [velocity; angularVelocity];
+
+            obj.rightWheelAngularVelocity = wheels(1);
+            obj.leftWheelAngularVelocity = wheels(2);
         end
 
         function obj = move(obj, timeSample)
