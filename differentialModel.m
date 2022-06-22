@@ -1,7 +1,7 @@
 clear; close all; clc;
 
 initialPosition = [0; 0; 0];
-goalPosition = [-5; 0; deg2rad(30)];
+goalPosition = [-5; -8; deg2rad(30)];
 
 robot = Robot(initialPosition);
 goal = Robot(goalPosition);
