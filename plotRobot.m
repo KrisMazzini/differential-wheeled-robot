@@ -1,9 +1,14 @@
-function plotRobot(robot, goal)
+function plotRobot(robot, goal, obstacles)
 
             plotBody(goal, 'y');
             plotBody(robot, 'r');
 
             hold on;
+
+            for ind = 1:length(obstacles)
+                plotObstacle(obstacles(ind));
+                hold on;
+            end
 
             plot( ...
                 robot.positionHistory(1,:), ...

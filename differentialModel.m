@@ -6,10 +6,15 @@ goalPosition = [-5; -8; deg2rad(30)];
 robot = Robot(initialPosition);
 goal = Robot(goalPosition);
 
+quantityOfObstacles = 5;
+for ind = 1:quantityOfObstacles
+    obstacles(ind) = Obstacle(robot, goal);
+end
+
 fig = figure;
 fig.Position = [0, 0, 1000, 1000];
 
-plotRobot(robot, goal);
+plotRobot(robot, goal, obstacles);
 title('Press "space" to begin.')
 pause;
 
@@ -43,7 +48,7 @@ while ( ...
 
     controller = CloseLoopControl(robot, goal);
 
-    plotRobot(robot, goal);
+    plotRobot(robot, goal, obstacles);
 
 end
 
