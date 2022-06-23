@@ -7,8 +7,9 @@ function plotRobot(robot, goal, obstacles)
 
             for ind = 1:length(obstacles)
                 plotObstacle(obstacles(ind));
-                hold on;
             end
+
+            plotCollisionAndInfluenceZones(robot)
 
             plot( ...
                 robot.positionHistory(1,:), ...

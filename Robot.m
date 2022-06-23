@@ -9,6 +9,7 @@ classdef Robot
         angularVelocity
         inertialFrameVelocity
         body
+        collisionZone
     end
     properties
         position = [0; 0; 0]
@@ -57,6 +58,14 @@ classdef Robot
             robotBody = RobotBody(obj);
         end
 
+        function robotCollisionZone = get.collisionZone(obj)
+            rBody = [obj.body.leftWheel obj.body.rightWheel obj.body.center];
+            robotCollisionZone = max(sqrt( ...
+                (rBody(1,:) - obj.position(1)).^2 + ...
+                (rBody(2,:) - obj.position(2)).^2 ...
+            ));
+        end
+
         function obj = adjustWheels(obj, velocity, angularVelocity)
             wheels = [
                 1/obj.wheelRadius,  obj.wheelAxis/(2*obj.wheelRadius)
@@ -82,7 +91,7 @@ classdef Robot
             meanPointFactor = obstacle.meanPointFactor;
             obj.influenceZone = max( ...
                 min(1, meanPointFactor), ...
-                2 * obj.body.collisionZone ...
+                2 * obj.collisionZone ...
             );
         end
 

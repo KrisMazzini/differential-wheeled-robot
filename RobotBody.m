@@ -3,7 +3,6 @@ classdef RobotBody
         center
         leftWheel
         rightWheel
-        collisionZone
     end
     properties
         position
@@ -44,14 +43,6 @@ classdef RobotBody
 
             robotRightWheel = obj.rotateZ(robotRightWheel);
             robotRightWheel = obj.translate(robotRightWheel);
-        end
-
-        function robotCollisionZone = get.collisionZone(obj)
-            fullBody = [obj.leftWheel obj.rightWheel obj.center];
-            robotCollisionZone = max(sqrt( ...
-                (fullBody(1,:) - obj.position(1)).^2 + ...
-                (fullBody(2,:) - obj.position(2)).^2 ...
-            ));
         end
 
         function outputMatrix = translate(obj, inputMatrix)
