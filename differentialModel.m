@@ -11,6 +11,9 @@ for ind = 1:quantityOfObstacles
     obstacles(ind) = Obstacle(robot, goal);
 end
 
+robot = robot.getInfluenceZone(obstacles(1));
+goal = goal.getInfluenceZone(obstacles(1));
+
 fig = figure;
 fig.Position = [0, 0, 1000, 1000];
 

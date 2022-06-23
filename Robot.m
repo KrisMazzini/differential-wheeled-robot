@@ -15,6 +15,7 @@ classdef Robot
         positionHistory = []
         leftWheelAngularVelocity = 0
         rightWheelAngularVelocity = 0
+        influenceZone
     end
     methods
 
@@ -75,6 +76,14 @@ classdef Robot
             obj.position(3) = adjustAngle(obj.position(3));
 
             obj.positionHistory = [obj.positionHistory, obj.position];
+        end
+
+        function obj = getInfluenceZone(obj, obstacle)
+            meanPointFactor = obstacle.meanPointFactor;
+            obj.influenceZone = max( ...
+                min(1, meanPointFactor), ...
+                2 * obj.body.collisionZone ...
+            );
         end
 
     end
