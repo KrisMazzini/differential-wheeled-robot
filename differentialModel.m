@@ -23,33 +23,28 @@ pause;
 
 simTimeSampling = 0.2;
 
-controller = CloseLoopControl(robot, goal);
+controller = PotentialField(robot, goal, obstacles);
 
 maxDistanceError = 0.01;
-maxAngleError = deg2rad(0.01);
 
-while ( ...
-    (controller.rho > maxDistanceError) || ...
-    (abs(controller.err(3)) > maxAngleError) ...
-)
+while controller.rho > maxDistanceError
 
-    velocity = controller.kRho * controller.rho;
-
-    controller = controller.shouldDriveBackwards(controller.alpha);
-
-    if (controller.driveBackwards)
-        velocity = -velocity;
+    if (controller.fTot(1) == Inf || controller.fTot(2) == Inf)
+        disp('A collision occured')
+        break
     end
 
-    angularVelocity = ( ...
-        controller.kAlpha * controller.alpha + ...
-        controller.kBeta * controller.beta ...
+    velocity = norm(controller.fTot, 2);
+
+    angularVelocity = adjustAngle( ...
+        atan2(controller.fTot(2), controller.fTot(1)) - ...
+        robot.position(3) ...
     );
 
     robot = robot.adjustWheels(velocity, angularVelocity);
     robot = robot.move(simTimeSampling);
 
-    controller = CloseLoopControl(robot, goal);
+    controller = PotentialField(robot, goal, obstacles);
 
     plotRobot(robot, goal, obstacles);
 
