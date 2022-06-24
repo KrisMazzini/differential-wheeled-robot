@@ -1,7 +1,10 @@
 clear; close all; clc;
 
+timeElapsed = 0;
+maxSimTime = 30;
+
 initialPosition = [0; 0; 0];
-goalPosition = [-5; -8; deg2rad(30)];
+goalPosition = [10; -15; deg2rad(30)];
 
 robot = Robot(initialPosition);
 goal = Robot(goalPosition);
@@ -27,10 +30,12 @@ controller = PotentialField(robot, goal, obstacles);
 
 maxDistanceError = 0.01;
 
-while controller.rho > maxDistanceError
+while (controller.rho > maxDistanceError) && timeElapsed < maxSimTime
+
+    tic
 
     if (controller.fTot(1) == Inf || controller.fTot(2) == Inf)
-        disp('A collision occured')
+        title('A collision occured')
         break
     end
 
@@ -48,6 +53,14 @@ while controller.rho > maxDistanceError
 
     plotRobot(robot, goal, obstacles);
 
+    timeElapsed = timeElapsed + toc;
+
 end
 
-title('Goal completed :)')
+if controller.rho <= maxDistanceError
+    title('Goal completed :)')
+end
+
+if timeElapsed >= maxSimTime
+    title('Max simulation time reached. Goal not completed!')
+end
